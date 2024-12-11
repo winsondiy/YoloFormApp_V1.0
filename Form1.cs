@@ -149,7 +149,6 @@ namespace YoloFormsApp
                     Debug.WriteLine(pred.Bounds);
                 }
                 // Create plotted image from model results
-                //using var plotted = await result.PlotImageAsync(image);
                 using var plotted = result.PlotImage(image);
                 plotted.Save(imageInfo.Name);
             }
@@ -183,7 +182,7 @@ namespace YoloFormsApp
                     Debug.WriteLine(pred.Bounds);
                 }
                 // Create plotted image from model results
-                //using var plotted = await result.PlotImageAsync(image);
+    
                 using var plotted = result.PlotImage(image);
                 plotted.Save(imageInfo.Name);
             }
@@ -216,7 +215,7 @@ namespace YoloFormsApp
                     Debug.WriteLine(pred.Bounds);
                 }
                 // Create plotted image from model results
-                //using var plotted = await result.PlotImageAsync(image);
+           
                 using var plotted = result.PlotImage(image);
                 plotted.Save(imageInfo.Name);
             }
@@ -230,19 +229,10 @@ namespace YoloFormsApp
                 {
                     var yoloItem = new YoloItem();
                     var originalImageHeight = image.Height;
-                    var originalImageWidth = image.Width;
-                    
-                    //var x = Math.Max(pred.Bounds.X, 0);
-                    //var y = Math.Max(pred.Bounds.Y, 0);
-                    //var width = Math.Min(originalImageWidth - x, pred.Bounds.Width);
-                    //var height = Math.Min(originalImageHeight - y, pred.Bounds.Height);
+                    var originalImageWidth = image.Width;                 
 
                     yoloItem.Type = pred.Name.ToString();
                     yoloItem.Confidence = Math.Round(pred.Confidence, 3);
-                    //yoloItem.X = x;
-                    //yoloItem.Y = y;
-                    //yoloItem.Width = width;
-                    //yoloItem.Height = height;
 
                     items.Add(yoloItem);
 
@@ -258,21 +248,10 @@ namespace YoloFormsApp
             }
 
 
-            //using var image = SixLabors.ImageSharp.Image.Load("images\\bus.jpg");
-            //using var image = SixLabors.ImageSharp.Image.Load(imageInfo.Path);
-
-            // Run model
-            //var result = predictor.Detect(image);
-            //var result = await predictor.PoseAsync(image);
-
-
-            //var yoloItem= new YoloItem();
 
             
             this.dataGridViewResult.DataSource = items.ToList();
             // Write the plotted image to file
-            
-
             this.pictureBox2.Image = Image.FromFile(imageInfo.Name);
         }
 
@@ -301,8 +280,6 @@ namespace YoloFormsApp
 
             this.dataGridViewResult.DataSource = null;
             this.dataGridViewResult.Refresh();
-            //this.dataGridViewResult.DataSource = null;
-            //this.groupBoxResult.Text = $"Result";
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -336,18 +313,13 @@ namespace YoloFormsApp
             }
 
             OpenFileDialog opdlg = new OpenFileDialog();
-            //opdlg.Filter = "onnx files (*.onnx)|*.onnx | All files(*.*) | *.*";
             opdlg.Filter = "ONNX files (*.ONNX,*.onnx)|*.ONNX;*.onnx | All files(*.*) | *.*";
             opdlg.InitialDirectory = @".\images";
 
-            //path.ShowDialog();
             if (opdlg.ShowDialog() == DialogResult.OK)
             {
-                string csvPath = opdlg.FileName;
-                
+                string csvPath = opdlg.FileName;                
                 tb_model_path.Text = opdlg.SafeFileName;
-                //FileCtrl.CSVToDataGridView(csvPath, dataGridView_Strategy);
-                //using var predictor = new YoloPredictor(csvPath);
             }
         }
     }
